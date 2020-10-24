@@ -25,9 +25,9 @@ class Area {
 
 
     ///user input for the width and length of rectangle
-    System.out.println("What's the width of the triangle");
+    System.out.println("What's the width of the rectangle");
 		int width = area.nextInt();
-		System.out.println("What's the Length of the triangle");
+		System.out.println("What's the Length of the rectangle");
 		int Length = area.nextInt();
     int rec = rectangle(width, Length);
 
