@@ -1,7 +1,6 @@
+//Project#01
 import java.util.*;
-public class FracCalc {
-
-
+class FracCalc {
     /**
      * Prompts user for input, passes that input to produceAnswer, then outputs the result.
      * @param args - unused
@@ -12,6 +11,8 @@ public class FracCalc {
       String calc =input.nextLine();
       System.out.println(calc);
       produceAnswer(calc);
+
+      //int secondOperand = SepFrac2(frac2);
 
         // TODO: Read the input from the user and call produceAnswer with an equation
         // Checkpoint 1: Create a Scanner, read one line of input, pass that input to produceAnswer, print the result.
@@ -25,7 +26,11 @@ public class FracCalc {
      * @return the result of the fraction after it has been calculated.
      *      Example: return ==> "1_1/4"
      */
+
     public static String produceAnswer(String input){
+
+      //Checkpoint 1: Return the second operand.  Example "4/5 * 1_2/4" returns "1_2/4".
+
       String frac1 = input.substring(0, input.indexOf(' '));
       System.out.println("Fraction 1:" + frac1);
       String operator = input.substring(frac1.length() + 1,frac1.length() + 2);
@@ -33,11 +38,26 @@ public class FracCalc {
       String frac2 = input.substring(frac1.length() + 3);
       System.out.println("Fraction 2:" + frac2);
 
-      //return Integer.parseInt(frac1);
-      //return Integer.parseInt(frac2);
 
-      //double solve = (frac1)(operator)(frac2);
-      //System.out.println(solve);
+      //Checkpoint 2: Return the second operand as a string representing each part.
+
+      int WholeNumber = frac2.indexOf("_");
+      System.out.println("WholeNumber: " + WholeNumber);
+
+      int Numerator = frac2.indexOf("/");
+      String Nume = frac2.substring(WholeNumber + 1, Numerator);
+      System.out.println("Numerator: "+ Nume);
+
+      String Deno = frac2.substring(Numerator + 1);
+      System.out.println("Denominator: "+ Deno);
+
+
+      return frac2;
+    }
+}
+
+
+
 
 
 
@@ -55,9 +75,25 @@ public class FracCalc {
         // Final project: All answers must be reduced.
         //               Example "4/5 * 1_2/4" returns "1_1/5".
 
-        return "";
-    }//end produceAnswer method
+        //return "";
+    //}//end produceAnswer method
+    //public static int SepFrac2(String frac2){
+      //int WholeNumber = frac2.indexOf("_");
+      //int Numerator = frac2.indexof("/");
+      //int denominator = frac2.indexof(" ");
 
+      //System.out.println(wholeNumber);
+
+     //System.out.println(numerator);
+
+     //System.out.println(denominator);
+    //}
+
+
+
+
+
+//}
     // TODO: Fill in the space below with helper methods
 
     /**
@@ -68,6 +104,7 @@ public class FracCalc {
      * @return The GCD.
 
     public static int greatestCommonDivisor(int a, int b){
+
 
     }//end greatestCommonDivisor method
 
@@ -80,6 +117,6 @@ public class FracCalc {
 
     public static int leastCommonMultiple(int a, int b){
 
-    }//end leastCommonMultiple*/
+    }//end leastCommonMultiple
 
-}//end class
+}//end class */
