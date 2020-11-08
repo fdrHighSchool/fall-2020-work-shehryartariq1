@@ -6,8 +6,8 @@ class FracCalc {
      * @param args - unused
      */
     public static void main(String[] args){
-      Scanner input = new Scanner(System.in);
-      System.out.println("Enter the problem:");
+      Scanner input = new Scanner(System.in);//creating scanner to store user input
+      System.out.println("Enter the problem:");//get the user input
       String calc =input.nextLine();
       System.out.println(calc);
       produceAnswer(calc);
@@ -27,31 +27,41 @@ class FracCalc {
      *      Example: return ==> "1_1/4"
      */
 
+    //method where fraction first get separated then breaks down into whole number, num, deno
     public static String produceAnswer(String input){
 
       //Checkpoint 1: Return the second operand.  Example "4/5 * 1_2/4" returns "1_2/4".
 
+      //substring takes in 2 values and we are using it to separate where the frac1 starts and then where it ends using indexof
       String frac1 = input.substring(0, input.indexOf(' '));
       System.out.println("Fraction 1:" + frac1);
+      //finding operator in the fraction using indexof that where in the equation it is
       String operator = input.substring(frac1.length() + 1,frac1.length() + 2);
       System.out.println("operator:" + operator);
+      //similar to frac1
       String frac2 = input.substring(frac1.length() + 3);
       System.out.println("Fraction 2:" + frac2);
 
 
       //Checkpoint 2: Return the second operand as a string representing each part.
 
-      int WholeNumber = frac2.indexOf("_");
-      System.out.println("WholeNumber: " + WholeNumber);
 
-      int Numerator = frac2.indexOf("/");
-      String Nume = frac2.substring(WholeNumber + 1, Numerator);
-      System.out.println("Numerator: "+ Nume);
+      int UnderScore = frac2.indexOf("_");
+      int Slash = frac2.indexOf("/");
 
-      String Deno = frac2.substring(Numerator + 1);
-      System.out.println("Denominator: "+ Deno);
+      if (UnderScore != -1){
+        String WholeNum = frac2.substring(0, UnderScore);
+        String Nume = frac2.substring(UnderScore + 1, Slash);
+        String Deno = frac2.substring(Slash + 1);
+        System.out.println("Whole Number: "+ WholeNum);
+        System.out.println("Numerator: "+ Nume);
+        System.out.println("Denominator: "+ Deno);
+      }
 
-
+      else{
+        String WholeNum =  frac2;
+        System.out.println("Whole Number: "+ WholeNum);
+      }
       return frac2;
     }
 }
