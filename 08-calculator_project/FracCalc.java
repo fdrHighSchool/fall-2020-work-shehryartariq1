@@ -6,6 +6,9 @@ class FracCalc {
      * @param args - unused
      */
     public static void main(String[] args){
+
+
+
       Scanner input = new Scanner(System.in);//creating scanner to store user input
       System.out.println("Enter the problem:");//get the user input
       String calc =input.nextLine();
@@ -28,6 +31,13 @@ class FracCalc {
      */
 
     //method where fraction first get separated then breaks down into whole number, num, deno
+
+    /*
+   *N: produceAnswer
+   *P: solve the equation the user inputs
+   *I: user input
+   *R: solution to equation
+   */
     public static String produceAnswer(String input){
 
       //Checkpoint 1: Return the second operand.  Example "4/5 * 1_2/4" returns "1_2/4".
@@ -46,87 +56,203 @@ class FracCalc {
       //Checkpoint 2: Return the second operand as a string representing each part.
 
 
-      int UnderScore = frac2.indexOf("_");
-      int Slash = frac2.indexOf("/");
+      //these 4 variables are created to see if the fraction contains whole number, Numerator and denominator
+      int UnderScore = frac1.indexOf("_");//The "_" in the frac1
+      int Slash = frac1.indexOf("/");//The "/"" in the frac1
+      int UnderScore2 = frac2.indexOf("_");
+      int Slash2 = frac2.indexOf("/");
 
+
+      //these variables are created to get the fraction in inproper form
+      int num, den, num2, den2;
+
+      //if the underscore is not equal to -1 that means the underscore is present
       if (UnderScore != -1){
-        String WholeNum = frac2.substring(0, UnderScore);
-        String Nume = frac2.substring(UnderScore + 1, Slash);
-        String Deno = frac2.substring(Slash + 1);
-        System.out.println("Whole Number: "+ WholeNum);
-        System.out.println("Numerator: "+ Nume);
-        System.out.println("Denominator: "+ Deno);
+        num = convertToImproper(frac1, UnderScore, Slash);
+        den = getDenominator(frac1, Slash);
+        System.out.println(num + "/" + den);}
+
+      //if the slash is not equal to -1 that means the slash core is present
+      else if (Slash != -1){
+        num = Integer.parseInt(frac1.substring(0, Slash));
+        den = Integer.parseInt(frac1.substring(Slash + 1));
+        System.out.println(num + "/" + den);}
+
+      //if both slash and underscore isn't present that means its a whole number and it get printed with denominator being zero
+      else {
+        num = Integer.parseInt(frac1);
+        den = 1;
+        System.out.println(num + "/" + den);
       }
 
-      else{
-        String WholeNum =  frac2;
-        System.out.println("Whole Number: "+ WholeNum);
-      }
-      return frac2;
+
+
+      //if the underscore is not equal to -1 that means the underscore is present
+      if (UnderScore2 != -1){
+        num2 = convertToImproper(frac2, UnderScore2, Slash2);
+        den2 = getDenominator(frac2, Slash2);
+        System.out.println(num2 + "/" + den2);}
+
+      //if the slash is not equal to -1 that means the slash core is present
+      else if (Slash2 != -1){
+        num2 = Integer.parseInt(frac2.substring(0, Slash2));
+        den2 = Integer.parseInt(frac2.substring(Slash2 + 1));
+        System.out.println(num2 + "/" + den2);}
+
+       //if both slash and underscore isn't present that means its a whole number and it get printed with denominator being zero
+       else{
+        num2 = Integer.parseInt(frac2);
+        den2 = 1;
+        System.out.println(num2 + "/" + den2);}
+
+
+        if (operator == "+") {
+          if (den == den2){
+            addSameDen(num, den, num2, den2);
+          }
+          else{
+            addDifDen(num, den, num2, den2);
+          }
+        }
+
+        if (operator == "-"){
+          if (den == den2){
+            subSameDen(num, den, num2, den2);
+          }
+          else{
+            subDifDen(num, den, num2, den2);
+          }
+        }
+
+        if (operator == "*") {
+          multiply(num, den, num2, den2);
+        }
+        else {
+          divide(num, den, num2, den2);
+        }
+        return frac2;
     }
+
+    /*
+   *N: convertToImproper
+   *P: to convert the mixed numbers to improper fraction
+   *I: user input
+   *R: Fraction as improper
+   */
+
+    //using this method to get the fraction in num/deno form
+    public static int convertToImproper(String frac, int underscore, int fracSlash){
+      int wholeNum = Integer.parseInt(frac.substring(0, underscore));//This takes the whole num from fraction one
+      int num = Integer.parseInt(frac.substring(underscore + 1, fracSlash));//Takes the numerator from fraction one
+      int den = Integer.parseInt(frac.substring(fracSlash + 1));//Takes the denominator from fraction one
+
+      int Impo  = wholeNum * den + num;
+      return Impo;}
+
+
+      /*
+   *N: getDenominator
+   *P: get denominator from the user input and separate it
+   *I: user input
+   *R: denominator
+   */
+
+    //using this method to get denominator
+    public static int getDenominator(String frac, int fracSlash){
+    return Integer.parseInt(frac.substring(fracSlash + 1));}
+
+
+    /*
+   *N: addSameDen
+   *P: is to solve  fraction with same denominator
+   *I: user input
+   *R: solution to addition problem with same denominator
+   */
+    public static int addSameDen(int num, int den, int num2, int den2) {
+    int Nume = num +  num2;
+    System.out.println("The result is: " + Nume + "/" + den);
+    return 0;}
+
+    /*
+   *N: addDifDen
+   *P: is to solve fraction with different denominator
+   *I: user input
+   *R: solution to addition problem with different denominator
+   */
+
+  public static int addDifDen(int num, int den, int num2, int den2){
+    int Nume1 = num * den2;
+    int Nume2 = num2 * den;
+
+    int finalNume = Nume1 + Nume2;
+    int finalDeno = den * den2;
+
+    System.out.println("The result is: " + finalNume + "/" + finalDeno);
+    return 0;}
+
+    /*
+   *N: subSameDen
+   *P: is to solve  fraction with same denominator
+   *I: user input
+   *R: solution to subtraction problem with same denominator
+   */
+
+
+  public static int subSameDen(int num, int den, int num2, int den2){
+
+    int Nume = num -  num2;
+
+    System.out.println("The result is: " + Nume + "/" + den);
+    return 0;}
+
+    /*
+   *N: subDifDen
+   *P: is to solve fraction with different denominator
+   *I: user input
+   *R: solution to subtraction problem with different denominator
+   */
+
+
+  public static int subDifDen(int num, int den, int num2, int den2) {
+
+    int Nume1 = num * den2;
+    int Nume2 = num2 * den;
+
+    int finalNume = Nume1 - Nume2;
+    int finalDeno = den * den2;
+
+    System.out.println("The result is: " + finalNume + "/" + finalDeno);
+    return 0;}
+
+    /*
+   *N: multiply
+   *P: is to multiply fraction
+   *I: user input
+   *R: solution  to multiplication
+   */
+
+
+  public static int multiply(int num, int den, int num2, int den2){
+
+    int finalNume = num * num2;
+    int finalDeno = den * den2;
+
+    System.out.println("The result is: " + finalNume + "/" + finalDeno);
+    return 0;}
+
+    /*
+   *N: divide
+   *P: is to divide fraction
+   *I: user input
+   *R: solution to divison
+   */
+
+
+  public static int divide(int num, int den, int num2, int den2){
+
+    int finalNume = num * den2;
+    int finalDeno = num2 * den;
+
+    System.out.println("The result is: " + finalNume + "/" + finalDeno);
+    return 0;}
 }
-
-
-
-
-
-
-
-
-
-
-        // TODO: Implement this function to produce the solution to the input
-        // Checkpoint 1: Return the second operand.  Example "4/5 * 1_2/4" returns "1_2/4".
-        // Checkpoint 2: Return the second operand as a string representing each part.
-        //               Example "4/5 * 1_2/4" returns "whole:1 numerator:2 denominator:4".
-        // Checkpoint 3: Evaluate the formula and return the result as a fraction.
-        //               Example "4/5 * 1_2/4" returns "6/5".
-        //               Note: Answer does not need to be reduced, but it must be correct.
-        // Final project: All answers must be reduced.
-        //               Example "4/5 * 1_2/4" returns "1_1/5".
-
-        //return "";
-    //}//end produceAnswer method
-    //public static int SepFrac2(String frac2){
-      //int WholeNumber = frac2.indexOf("_");
-      //int Numerator = frac2.indexof("/");
-      //int denominator = frac2.indexof(" ");
-
-      //System.out.println(wholeNumber);
-
-     //System.out.println(numerator);
-
-     //System.out.println(denominator);
-    //}
-
-
-
-
-
-//}
-    // TODO: Fill in the space below with helper methods
-
-    /**
-     * greatestCommonDivisor - Find the largest integer that evenly divides two integers.
-     *      Use this helper method in the Final Checkpoint to reduce fractions.
-     * @param a - First integer.
-     * @param b - Second integer.
-     * @return The GCD.
-
-    public static int greatestCommonDivisor(int a, int b){
-
-
-    }//end greatestCommonDivisor method
-
-    /**
-     * leastCommonMultiple - Find the smallest integer that can be evenly divided by two integers.
-     *      Use this helper method in Checkpoint 3 to evaluate expressions.
-     * @param a - First integer.
-     * @param b - Second integer.
-     * @return The LCM.
-
-    public static int leastCommonMultiple(int a, int b){
-
-    }//end leastCommonMultiple
-
-}//end class */
