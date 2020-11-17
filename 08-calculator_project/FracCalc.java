@@ -106,7 +106,7 @@ class FracCalc {
         System.out.println(num2 + "/" + den2);}
 
 
-        if (operator == "+") {
+        if (operator.equals("+")){
           if (den == den2){
             addSameDen(num, den, num2, den2);
           }
@@ -115,7 +115,10 @@ class FracCalc {
           }
         }
 
-        if (operator == "-"){
+
+
+        if (operator.equals("-")){
+
           if (den == den2){
             subSameDen(num, den, num2, den2);
           }
@@ -124,12 +127,15 @@ class FracCalc {
           }
         }
 
-        if (operator == "*") {
+
+        if (operator.equals("*")) {
           multiply(num, den, num2, den2);
         }
         else {
           divide(num, den, num2, den2);
         }
+
+
         return frac2;
     }
 
@@ -169,9 +175,10 @@ class FracCalc {
    *R: solution to addition problem with same denominator
    */
     public static int addSameDen(int num, int den, int num2, int den2) {
-    int Nume = num +  num2;
-    System.out.println("The result is: " + Nume + "/" + den);
-    return 0;}
+      System.out.println("Hello");
+      int Nume = num +  num2;
+      System.out.println("The result is: " + Nume + "/" + den);
+      return 0;}
 
     /*
    *N: addDifDen
@@ -181,6 +188,7 @@ class FracCalc {
    */
 
   public static int addDifDen(int num, int den, int num2, int den2){
+    System.out.println("Hello!");
     int Nume1 = num * den2;
     int Nume2 = num2 * den;
 
@@ -199,6 +207,7 @@ class FracCalc {
 
 
   public static int subSameDen(int num, int den, int num2, int den2){
+    System.out.println("Hello!!");
 
     int Nume = num -  num2;
 
@@ -214,6 +223,7 @@ class FracCalc {
 
 
   public static int subDifDen(int num, int den, int num2, int den2) {
+    System.out.println("Hello!!!");
 
     int Nume1 = num * den2;
     int Nume2 = num2 * den;
@@ -233,6 +243,9 @@ class FracCalc {
 
 
   public static int multiply(int num, int den, int num2, int den2){
+    System.out.println("Hello!!!!");
+
+
 
     int finalNume = num * num2;
     int finalDeno = den * den2;
@@ -249,6 +262,7 @@ class FracCalc {
 
 
   public static int divide(int num, int den, int num2, int den2){
+    System.out.println("Hello!!!!!");
 
     int finalNume = num * den2;
     int finalDeno = num2 * den;
