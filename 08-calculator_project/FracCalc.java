@@ -15,7 +15,7 @@ class FracCalc {
         String calc =input.nextLine();
 
         if (calc == "quit") {
-          quit = false; //the way i have it, it crashed, but it still technically quits
+          quit = false; //it crashes, but still technically quits
         }
         produceAnswer(calc);
     }   while (quit);
@@ -190,6 +190,13 @@ class FracCalc {
     }//end greatestCommonDivisor method
 
 
+     /*
+   *N: Simplify
+   *P: return simplifed version of the fraction
+   *I: gfc, Num, den
+   *R: The simplifed version of the fraction
+   */
+
     public static String Simplify(int gcf, int num, int den){
       String simplyAns = "";
       int simplyNum = num/gcf;
@@ -210,6 +217,13 @@ class FracCalc {
       return simplyAns;
     }
 
+
+     /*
+    * Name: CovertToMixed
+    * Purpose: Makes mixed
+    * Input: Num, Den
+    * Return: The mixed fraction
+    */
 
     public static String CovertToMixed(int num, int den){
       int whole121 = num / den; //find whole number
