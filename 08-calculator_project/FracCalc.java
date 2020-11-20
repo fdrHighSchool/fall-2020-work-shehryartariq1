@@ -6,21 +6,35 @@ class FracCalc {
      * @param args - unused
      */
     public static void main(String[] args){
-
-
-
       Scanner input = new Scanner(System.in);//creating scanner to store user input
-      System.out.println("Enter the problem:");//get the user input
-      String calc =input.nextLine();
-      System.out.println(calc);
-      produceAnswer(calc);
+
+      boolean quit = true;
+
+      do {
+        System.out.println("Hi! Welome to one of the genius calculator.Type the problem or type quit to exit");System.out.println("Enter the problem:");//get the user input
+        String calc =input.nextLine();
+
+        if (calc == "quit") {
+          quit = false; //the way i have it, it crashed, but it still technically quits
+        }
+        produceAnswer(calc);
+    }   while (quit);
+  }
+
+
+
+      //Scanner input = new Scanner(System.in);//creating scanner to store user input
+      //System.out.println("Enter the problem:");//get the user input
+      //String calc =input.nextLine();
+      //System.out.println(calc);
+      //produceAnswer(calc);
 
       //int secondOperand = SepFrac2(frac2);
 
         // TODO: Read the input from the user and call produceAnswer with an equation
         // Checkpoint 1: Create a Scanner, read one line of input, pass that input to produceAnswer, print the result.
         // Checkpoint 2: Accept user input multiple times.
-    }//end main method
+    //}//end main method
 
     /**
      * produceAnswer - This function takes a String 'input' and produces the result.
@@ -131,13 +145,83 @@ class FracCalc {
         if (operator.equals("*")) {
           multiply(num, den, num2, den2);
         }
-        else {
+        if (operator.equals("/")) {
           divide(num, den, num2, den2);
+        }
+        else{
+          System.out.println("Please enter a valid input");
         }
 
 
         return frac2;
     }
+
+    /*
+     * greatestCommonDivisor - Find the largest integer that evenly divides two integers.
+     *      Use this helper method in the Final Checkpoint to reduce fractions.
+     * @param a - First integer.
+     * @param b - Second integer.
+     * @return The GCD.
+     */
+
+     public static int greatestCommonDivisor(int a, int b){
+       int minimum = 1;
+       int gcd = 1;
+
+      //Finds min of a and b
+       if (a > b){
+         minimum = b;
+       }
+       else if (a < b){
+          minimum = a;
+       }
+       else{
+         return a;
+       }
+
+      //finds the gcd
+       for (int i = 1; i <= minimum; i++){
+
+         if (a % i == 0 && b % i == 0){
+           gcd = i;
+         }
+       }
+       return gcd;
+    }//end greatestCommonDivisor method
+
+
+    public static String Simplify(int gcf, int num, int den){
+      String simplyAns = "";
+      int simplyNum = num/gcf;
+      int simplyDen = den/gcf;
+
+      simplyAns = simplyNum + "/" + simplyDen;
+
+      if(num > den){
+        String Ans = CovertToMixed(simplyNum,simplyDen);
+        return Ans;
+      }
+      if(simplyDen == 1){
+        return String.valueOf(simplyNum);
+      }
+      if(simplyNum == 0){
+        return String.valueOf(simplyDen);
+      }
+      return simplyAns;
+    }
+
+
+    public static String CovertToMixed(int num, int den){
+      int whole121 = num / den; //find whole number
+      int newNum = num % den; //find numerator
+      String result = whole121 + "_" + newNum + "/" + den; //organizes makes it look like A_C/D
+      if(newNum == 0 && den == 1){
+        String newResult = "" + whole121;
+        return newResult;
+      }
+      return result; //return the result
+    }
+
 
     /*
    *N: convertToImproper
@@ -174,11 +258,14 @@ class FracCalc {
    *I: user input
    *R: solution to addition problem with same denominator
    */
-    public static int addSameDen(int num, int den, int num2, int den2) {
-      System.out.println("Hello");
+    public static String addSameDen(int num, int den, int num2, int den2) {
       int Nume = num +  num2;
-      System.out.println("The result is: " + Nume + "/" + den);
-      return 0;}
+      int reduce = greatestCommonDivisor(Nume,den);
+      String SimplifyAnswer = Simplify(reduce, Nume, den);
+
+      System.out.println("The result is: " + SimplifyAnswer);
+      return SimplifyAnswer;}
+
 
     /*
    *N: addDifDen
@@ -187,16 +274,19 @@ class FracCalc {
    *R: solution to addition problem with different denominator
    */
 
-  public static int addDifDen(int num, int den, int num2, int den2){
-    System.out.println("Hello!");
+  public static String addDifDen(int num, int den, int num2, int den2){
     int Nume1 = num * den2;
     int Nume2 = num2 * den;
 
     int finalNume = Nume1 + Nume2;
     int finalDeno = den * den2;
 
-    System.out.println("The result is: " + finalNume + "/" + finalDeno);
-    return 0;}
+    int reduce = greatestCommonDivisor(finalNume,finalDeno);
+    String SimplifyAnswer = Simplify(reduce, finalNume, finalDeno);
+
+    System.out.println("The result is: " + SimplifyAnswer);
+    return SimplifyAnswer;}
+
 
     /*
    *N: subSameDen
@@ -205,14 +295,15 @@ class FracCalc {
    *R: solution to subtraction problem with same denominator
    */
 
-
-  public static int subSameDen(int num, int den, int num2, int den2){
-    System.out.println("Hello!!");
-
+  public static String subSameDen(int num, int den, int num2, int den2){
     int Nume = num -  num2;
 
-    System.out.println("The result is: " + Nume + "/" + den);
-    return 0;}
+    int reduce = greatestCommonDivisor(Nume,den);
+    String SimplifyAnswer = Simplify(reduce, Nume, den);
+
+    System.out.println("The result is: " + SimplifyAnswer);
+    return SimplifyAnswer;}
+
 
     /*
    *N: subDifDen
@@ -221,18 +312,19 @@ class FracCalc {
    *R: solution to subtraction problem with different denominator
    */
 
-
-  public static int subDifDen(int num, int den, int num2, int den2) {
-    System.out.println("Hello!!!");
-
+  public static String subDifDen(int num, int den, int num2, int den2) {
     int Nume1 = num * den2;
     int Nume2 = num2 * den;
 
     int finalNume = Nume1 - Nume2;
     int finalDeno = den * den2;
 
-    System.out.println("The result is: " + finalNume + "/" + finalDeno);
-    return 0;}
+    int reduce = greatestCommonDivisor(finalNume,finalDeno);
+    String SimplifyAnswer = Simplify(reduce, finalNume, finalDeno);
+
+    System.out.println("The result is: " + SimplifyAnswer);
+    return SimplifyAnswer;}
+
 
     /*
    *N: multiply
@@ -241,17 +333,16 @@ class FracCalc {
    *R: solution  to multiplication
    */
 
-
-  public static int multiply(int num, int den, int num2, int den2){
-    System.out.println("Hello!!!!");
-
-
-
+  public static String multiply(int num, int den, int num2, int den2){
     int finalNume = num * num2;
     int finalDeno = den * den2;
 
-    System.out.println("The result is: " + finalNume + "/" + finalDeno);
-    return 0;}
+    int reduce = greatestCommonDivisor(finalNume,finalDeno);
+    String SimplifyAnswer = Simplify(reduce, finalNume, finalDeno);
+
+    System.out.println("The result is: " + SimplifyAnswer);
+    return SimplifyAnswer;}
+
 
     /*
    *N: divide
@@ -260,13 +351,14 @@ class FracCalc {
    *R: solution to divison
    */
 
-
-  public static int divide(int num, int den, int num2, int den2){
-    System.out.println("Hello!!!!!");
-
+  public static String divide(int num, int den, int num2, int den2){
     int finalNume = num * den2;
     int finalDeno = num2 * den;
 
-    System.out.println("The result is: " + finalNume + "/" + finalDeno);
-    return 0;}
+    int reduce = greatestCommonDivisor(finalNume,finalDeno);
+    String SimplifyAnswer = Simplify(reduce, finalNume, finalDeno);
+
+    System.out.println("The result is: " + SimplifyAnswer);
+    return SimplifyAnswer;}
+
 }
